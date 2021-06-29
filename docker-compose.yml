@@ -1,0 +1,23 @@
+version: "3"
+services:
+  dia-project:
+   image: 'mysql:5.7'
+   environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+   ports:
+     - "3307:3306"
+  dia-project-spring-dia-spring:
+   image: dia-project-spring-dia-spring
+   ports:
+     - "8443:8080"
+   environment:
+     SPRING.DATASOURCE.URL: jdbc:mysql://mysql_standalone:3306/dia-project
+     SPRING_DATASOURCE_USERNAME: "root"
+     SPRING_DATASOURCE_PASSWORD:
+   build:
+    context: "./"
+    dockerfile: "Dockerfile"
+   depends_on:
+    - mysql_standalone
